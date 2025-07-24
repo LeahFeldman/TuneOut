@@ -1,28 +1,34 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 function ReadPlaylist() {
-  const navigate = useNavigate();
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const [playlist, setPlaylist] = useState(null);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch('https://l9kvphvd0a.execute-api.us-east-1.amazonaws.com/readPlaylist')
-      .then((res) => {
+    async function fetchPlaylist() {
+      try {
+        const res = await fetch('https://l9kvphvd0a.execute-api.us-east-1.amazonaws.com/readPlaylist');
         if (!res.ok) throw new Error('Network response was not OK');
-        return res.json();
-      })
-      .then((data) => {
+
+        const data = await res.json();
         const selected = data.find((p) => String(p.pk) === id);
+
+        if (!selected) {
+          throw new Error('Playlist not found.');
+        }
+
         setPlaylist(selected);
-      })
-      .catch((err) => {
+      } catch (err) {
         console.error('Error fetching playlist:', err);
         setError('Something went wrong fetching the playlist.');
-      });
+      }
+    }
+
+    fetchPlaylist();
   }, [id]);
 
   return (
@@ -59,33 +65,32 @@ function ReadPlaylist() {
             <h6 className="text-uppercase text-secondary fw-semibold small mb-2">Songs</h6>
 
             {Array.isArray(playlist.songs) && playlist.songs.length > 0 ? (
-            <ul className="list-group list-group-flush small">
-              {playlist.songs.map((song, i) => (
-                <li
-                  key={i}
-                  className="list-group-item px-0 d-flex justify-content-between align-items-center"
-                >
-                  <div className="w-100">
-                    <div className="text-start fw-semibold">{song.title}</div>
-                    <div className="text-start text-muted small">{song.artist}</div>
-                  </div>
-                  <span className="text-secondary ms-3">{song.duration}</span>
-                </li>
-              ))}
-            </ul>
-
+              <ul className="list-group list-group-flush small">
+                {playlist.songs.map((song, i) => (
+                  <li
+                    key={i}
+                    className="list-group-item px-0 d-flex justify-content-between align-items-center"
+                  >
+                    <div className="w-100">
+                      <div className="text-start fw-semibold">{song.title}</div>
+                      <div className="text-start text-muted small">{song.artist}</div>
+                    </div>
+                    <span className="text-secondary ms-3">{song.duration}</span>
+                  </li>
+                ))}
+              </ul>
             ) : (
               <p className="text-muted fst-italic">No songs listed for this playlist.</p>
             )}
-            <div className="d-flex flex-column align-items-center gap-2 mb-4">
 
-                  <button
-                      onClick={() => navigate(`/AddSong/${playlist.pk}`)}
-                      className="btn btn-outline-secondary btn-sm w-75"
-                    >
-                      Add Song
-                    </button>
-            </div> 
+            <div className="d-flex flex-column align-items-center gap-2 mb-4 mt-3">
+              <button
+                onClick={() => navigate(`/AddSong/${playlist.pk}`)}
+                className="btn btn-outline-secondary btn-sm w-75"
+              >
+                ➕ Add Song
+              </button>
+            </div>
           </>
         )}
       </div>

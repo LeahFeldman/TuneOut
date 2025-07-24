@@ -1,19 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 function AddSong() {
-  const { id: playlistName } = useParams();
+  const { id } = useParams(); // playlist ID from URL
 
+  const [playlistName, setPlaylistName] = useState('');
   const [title, setTitle] = useState('');
   const [artist, setArtist] = useState('');
   const [duration, setDuration] = useState('');
   const [message, setMessage] = useState('');
 
+  // 🌟 Fetch playlist name using ID
+  useEffect(() => {
+    async function fetchName() {
+      try {
+        const res = await fetch('https://l9kvphvd0a.execute-api.us-east-1.amazonaws.com/readPlaylist');
+        const data = await res.json();
+        const matched = data.find((p) => String(p.pk) === id);
+        setPlaylistName(matched?.name || matched?.title || 'Untitled Playlist');
+      } catch (err) {
+        setPlaylistName('Untitled Playlist');
+      }
+    }
+    fetchName();
+  }, [id]);
+
+  // 🚀 Handle song submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const payload = {
-      playlistId: playlistName,
+      playlistId: id,
       title,
       artist,
       duration,
@@ -48,24 +64,28 @@ function AddSong() {
     <div
       className="d-flex align-items-center justify-content-center"
       style={{
-        minHeight: 'calc(100vh - 100px)', // slightly less than full height to avoid overflow
+        minHeight: 'calc(100vh - 100px)',
         background: 'linear-gradient(135deg, #f8f9fa, #e0e7ff)',
         overflow: 'hidden',
+        padding: '1rem',
       }}
     >
       <div
-        className="card shadow-sm rounded-4 border-0"
+        className="card shadow-sm rounded-4 border-0 w-100"
         style={{
-          width: '100%',
-          maxWidth: '360px',
-          padding: '1rem',
+          maxWidth: '540px',
+          padding: '1.5rem',
         }}
       >
-        <h6 className="text-center text-muted mb-1">Add a Song to</h6>
-        <h5 className="text-center text-primary fw-semibold mb-2">"{playlistName}"</h5>
+        <h4 className="fw-bold text-dark text-center mb-1">
+          {playlistName}
+        </h4>
+        <p className="text-center text-muted mb-4 small">
+          Add a new song to your playlist
+        </p>
 
         <form onSubmit={handleSubmit}>
-          <div className="form-floating mb-1">
+          <div className="form-floating mb-2">
             <input
               type="text"
               className="form-control"
@@ -78,7 +98,7 @@ function AddSong() {
             <label htmlFor="title">Title</label>
           </div>
 
-          <div className="form-floating mb-1">
+          <div className="form-floating mb-2">
             <input
               type="text"
               className="form-control"
@@ -91,31 +111,31 @@ function AddSong() {
             <label htmlFor="artist">Artist</label>
           </div>
 
-          <div className="form-floating mb-2">
+          <div className="form-floating mb-3">
             <input
               type="text"
               className="form-control"
               id="duration"
-              placeholder="Duration"
+              placeholder="Duration (e.g. 3:45)"
               value={duration}
               onChange={(e) => setDuration(e.target.value)}
               required
             />
-            <label htmlFor="duration">Duration (e.g. 3:45)</label>
+            <label htmlFor="duration">Duration</label>
           </div>
 
-          <button type="submit" className="btn btn-primary w-100 fw-bold py-2">
-            🎶 Add Song
+          <button type="submit" className="btn btn-outline-secondary btn-sm w-75 d-block mx-auto">
+            🎵 Add Song
           </button>
         </form>
 
         {message && (
           <div
-            className={`alert mt-2 py-1 px-2 text-center ${
+            className={`alert mt-3 py-2 text-center ${
               message.startsWith('✅') ? 'alert-success' : 'alert-danger'
             }`}
-            style={{ fontSize: '0.85rem' }}
             role="alert"
+            style={{ fontSize: '0.85rem' }}
           >
             {message}
           </div>
