@@ -39,7 +39,7 @@ describe('Home component', () => {
         <Home />
       </MemoryRouter>
     );
-    expect(await screen.findByText(/tuneout/i)).toBeInTheDocument();
+    expect(await screen.findByRole('heading', { name: /tuneout/i })).toBeInTheDocument();
     expect(screen.getByText('+ Create Playlist')).toBeInTheDocument();
   });
 

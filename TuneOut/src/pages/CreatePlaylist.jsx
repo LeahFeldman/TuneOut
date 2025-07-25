@@ -73,8 +73,9 @@ const CreatePlaylist = () => {
       <h2 className="mb-4">Create Playlist</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
-          <label className="form-label">Playlist Title</label>
+          <label className="form-label" htmlFor="playlistTitle">Playlist Title</label>
           <input
+            id="playlistTitle"
             type="text"
             className="form-control"
             value={playlistName}
@@ -84,8 +85,9 @@ const CreatePlaylist = () => {
         </div>
 
         <div className="mb-3">
-          <label className="form-label">Author</label>
+          <label className="form-label" htmlFor="playlistAuthor">Author</label>
           <input
+            id="playlistAuthor"
             type="text"
             className="form-control"
             value={playlistAuthor}

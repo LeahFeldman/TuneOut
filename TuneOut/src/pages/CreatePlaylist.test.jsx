@@ -1,5 +1,6 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import { MemoryRouter } from 'react-router-dom';
 import CreatePlaylist from './CreatePlaylist';
 
 global.fetch = vi.fn(() =>
@@ -14,7 +15,10 @@ describe('CreatePlaylist Component', () => {
   });
 
   test('adds a song to the list when all fields are filled', () => {
-    render(<CreatePlaylist />);
+    render( <MemoryRouter>
+          <CreatePlaylist />
+         </MemoryRouter>
+);
 
     fireEvent.change(screen.getByPlaceholderText('Title'), {
       target: { value: 'Song A' },
@@ -32,7 +36,10 @@ describe('CreatePlaylist Component', () => {
   });
 
   test('submits the form and shows success message', async () => {
-    render(<CreatePlaylist />);
+    render( <MemoryRouter>
+          <CreatePlaylist />
+          </MemoryRouter>
+);
 
     fireEvent.change(screen.getByLabelText(/Playlist Title/i), {
       target: { value: 'My Playlist' },
@@ -52,7 +59,8 @@ describe('CreatePlaylist Component', () => {
     });
     fireEvent.click(screen.getByText('+'));
 
-    fireEvent.click(screen.getByText(/Create Playlist/i));
+    fireEvent.click(screen.getByRole('button', { name: /Create Playlist/i }));
+
 
     await waitFor(() =>
       expect(screen.getByText(/Playlist created successfully!/i)).toBeInTheDocument()

@@ -6,6 +6,6 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     globals: true, // ✅ This enables global functions like `expect`
-    // setupFiles: './src/setupTests.js',
+    setupFiles: './src/setupTest.js',
   },
 });

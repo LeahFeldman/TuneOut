@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { vi } from 'vitest';
-import ContactUs from './ContactUs';
+import ContactUs from './Contact';
 
 describe('ContactUs Component', () => {
   it('renders all form fields correctly', () => {
