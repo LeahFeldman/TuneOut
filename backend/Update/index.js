@@ -13,7 +13,7 @@ const TABLE_NAME = "tune_out";
 const CORS_HEADERS = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "Content-Type",
-  "Access-Control-Allow-Methods": "POST,OPTIONS",
+  "Access-Control-Allow-Methods": "POST,OPTIONS,GET,DELETE"
 };
 
 exports.handler = async (event) => {
