@@ -23,6 +23,10 @@ exports.handler = async (event) => {
     await client.send(new DeleteItemCommand(params));
     return {
       statusCode: 200,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Content-Type",
+      },
       body: JSON.stringify({ message: "Item deleted successfully" }),
     };
   } catch (err) {
