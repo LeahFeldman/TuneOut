@@ -56,6 +56,14 @@ Resources:
             Path: /DeletePlaylist
             Method: DELETE
             ApiId: !Ref PlaylistAPI
+        
+        ApiForMyAppOptions:
+            Type: HttpApi
+            Properties:
+              Path: /DeletePlaylist
+              Method: OPTIONS
+              ApiId: !Ref PlaylistAPI
+
 
     #Create Playlist
   CreatePlaylistFunction:
@@ -94,6 +102,14 @@ Resources:
               Path: /UpdatePlaylist
               Method: POST
               ApiId: !Ref PlaylistAPI
+          
+          ApiForMyAppOptions:
+              Type: HttpApi
+              Properties:
+                Path: /UpdatePlaylist
+                Method: OPTIONS
+                ApiId: !Ref PlaylistAPI
+
 
 
 Outputs:
