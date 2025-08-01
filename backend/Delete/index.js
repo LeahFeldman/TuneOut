@@ -5,6 +5,22 @@ const client = new DynamoDBClient({ region: "us-east-1" });
 exports.handler = async (event) => {
   const playlistId = event?.queryStringParameters?.playlistId;
 
+  
+if (event?.httpMethod === "OPTIONS") {
+  return {
+    statusCode: 200,
+    
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Headers": "Content-Type",
+      "Access-Control-Allow-Methods": "OPTIONS,DELETE"
+    },
+
+    body: ""
+  };
+}
+
+
   if (!playlistId) {
     return {
       statusCode: 400,
