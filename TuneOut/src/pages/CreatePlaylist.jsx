@@ -100,6 +100,7 @@ const CreatePlaylist = () => {
           <label className="form-label">Add Song</label>
           <div className="d-flex flex-column flex-md-row gap-2">
             <input
+              id="songTitle"
               type="text"
               className="form-control"
               placeholder="Title"
@@ -107,6 +108,7 @@ const CreatePlaylist = () => {
               onChange={(e) => setSongTitle(e.target.value)}
             />
             <input
+              id="songArtist"
               type="text"
               className="form-control"
               placeholder="Artist"
@@ -114,13 +116,14 @@ const CreatePlaylist = () => {
               onChange={(e) => setSongArtist(e.target.value)}
             />
             <input
+              id="songDuration"
               type="text"
               className="form-control"
               placeholder="Duration"
               value={songDuration}
               onChange={(e) => setSongDuration(e.target.value)}
             />
-            <button type="button" className="btn btn-outline-primary" onClick={AddSong}>+</button>
+            <button id="addSong" type="button" className="btn btn-outline-primary" onClick={AddSong}>+</button>
           </div>
         </div>
 
@@ -134,7 +137,7 @@ const CreatePlaylist = () => {
           </ul>
         )}
 
-        <button type="submit" className="btn btn-success">Create Playlist</button>
+        <button id="submitPlaylist" type="submit" className="btn btn-success">Create Playlist</button>
       </form>
 
       {response && (

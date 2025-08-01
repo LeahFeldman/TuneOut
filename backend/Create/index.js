@@ -54,7 +54,7 @@ exports.handler = async (event) => {
         "Access-Control-Allow-Headers": "Content-Type",
       },
       body: JSON.stringify({
-        message: `Playlist '${name}' by ${author} saved to DynamoDB!`,
+        message: `Playlist '${name}' by ${author} added successfully.`,
         id: playlistId,
         songs,
       }),
