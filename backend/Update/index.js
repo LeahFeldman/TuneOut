@@ -20,13 +20,13 @@ const CORS_HEADERS = {
 exports.handler = async (event) => {
   console.log("Incoming event:", JSON.stringify(event, null, 2));
 
-  if (event?.httpMethod === "OPTIONS") {
-    return {
-      statusCode: 200,
-      headers: CORS_HEADERS,
-      body: "",
-    };
-  }
+  // if (event?.httpMethod === "OPTIONS") {
+  //   return {
+  //     statusCode: 200,
+  //     headers: CORS_HEADERS,
+  //     body: "",
+  //   };
+  // }
 
   if (event?.httpMethod && event.httpMethod !== "POST") {
     return {
