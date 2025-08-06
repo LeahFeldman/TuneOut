@@ -72,8 +72,8 @@ function ReadPlaylist() {
                     className="list-group-item px-0 d-flex justify-content-between align-items-center"
                   >
                     <div className="w-100">
-                      <div className="text-start fw-semibold">{song.title}</div>
-                      <div className="text-start text-muted small">{song.artist}</div>
+                      <div id="playlistTitle" className="text-start fw-semibold">{song.title}</div>
+                      <div id="playlistArtist" className="text-start text-muted small">{song.artist}</div>
                     </div>
                     <span className="text-secondary ms-3">{song.duration}</span>
                   </li>

@@ -76,7 +76,7 @@ function AddSong() {
         className="card shadow-sm rounded-4 border-0 w-100"
         style={{ maxWidth: '540px', padding: '1.5rem' }}
       >
-        <h4 className="fw-bold text-dark text-center mb-1">
+        <h4 id="playlistTitle" className="fw-bold text-dark text-center mb-1">
           {playlistName}
         </h4>
         <p className="text-center text-muted mb-4 small">
