@@ -45,7 +45,7 @@ function Home() {
           <p className="text-muted text-center">No playlists available. Create one to get started!</p>
         ) : (
           playlists.map((playlist) => (
-            <div key={playlist.pk} className="col-6 col-md-4 col-lg-3 mb-4 d-flex">
+            <div key={playlist.pk} id={playlist.name} className="col-6 col-md-4 col-lg-3 mb-4 d-flex">
               <div
                 className="card w-100 text-center shadow-sm"
                 style={{
