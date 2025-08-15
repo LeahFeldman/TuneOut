@@ -3,7 +3,7 @@ Transform: AWS::Serverless-2016-10-31
 Description: Lambda + API Gateway using SAM
 
 Parameters:
-  ExistingWeeklyTopicArn:
+  ExistingWeeklyTopic:
     Type: String
     Default: arn:aws:sns:us-east-1:738232691627:WeeklyUpdates
 
@@ -115,10 +115,10 @@ Resources:
               Action:
                 - sns:Publish
                 - sns:Subscribe
-              Resource: !Ref ExistingWeeklyTopicArn
+              Resource: !Ref ExistingWeeklyTopic
         Environment:
           Variables:
-            WEEKLY_TOPIC_ARN: !Ref ExistingWeeklyTopicArn
+            WEEKLY_TOPIC_ARN: !Ref ExistingWeeklyTopic
         Events:
           SubscribeEvent:
             Type: HttpApi
@@ -131,7 +131,7 @@ Resources:
     Type: AWS::SNS::TopicPolicy
     Properties:
       Topics:
-        - !Ref ExistingWeeklyTopicArn
+        - !Ref ExistingWeeklyTopic
       PolicyDocument:
         Statement:
           - Sid: AllowLambdaSubscribe
@@ -139,7 +139,7 @@ Resources:
             Principal:
                Service: lambda.amazonaws.com
             Action: sns:Subscribe
-            Resource: !Ref ExistingWeeklyTopicArn
+            Resource: !Ref ExistingWeeklyTopic
   #Weekly Updates- publisher lambda to send message
   WeeklyUpdatePublisherFunction:
     Type: AWS::Serverless::Function
@@ -150,14 +150,14 @@ Resources:
       CodeUri: Publisher/
       Environment:
         Variables:
-          WEEKLY_TOPIC_ARN: !Ref ExistingWeeklyTopicArn
+          WEEKLY_TOPIC_ARN: !Ref ExistingWeeklyTopic
       Policies:
         - DynamoDBReadPolicy:
             TableName: tune_out
         - Statement:
             Effect: Allow
             Action: sns:Publish
-            Resource: !Ref ExistingWeeklyTopicArn
+            Resource: !Ref ExistingWeeklyTopic
   #Event Bridge Scheduler (run publisher lambda once a week)
   WeeklyUpdateSchedule:
     Type: AWS::Scheduler::Schedule
