@@ -5,7 +5,7 @@ Description: Lambda + API Gateway using SAM
 Parameters:
   ExistingWeeklyTopicArn:
     Type: String
-    Default: arn:aws:sns:us-east-1:381491939913:WeeklyTuneOutUpdates
+    Default: arn:aws:sns:us-east-1:738232691627:WeeklyUpdates
 
 Resources:
   PlaylistAPI:
