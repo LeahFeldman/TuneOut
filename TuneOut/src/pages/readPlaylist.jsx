@@ -11,7 +11,7 @@ function ReadPlaylist() {
   useEffect(() => {
     async function fetchPlaylist() {
       try {
-        const res = await fetch('https://l9kvphvd0a.execute-api.us-east-1.amazonaws.com/readPlaylist');
+        const res = await fetch('https://ljuks4nc2i.execute-api.us-east-1.amazonaws.com/readPlaylist');
         if (!res.ok) throw new Error('Network response was not OK');
 
         const data = await res.json();

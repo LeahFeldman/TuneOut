@@ -18,7 +18,7 @@ function AddSong() {
     async function fetchName() {
       try {
         const res = await fetch(
-          'https://l9kvphvd0a.execute-api.us-east-1.amazonaws.com/readPlaylist'
+          'https://ljuks4nc2i.execute-api.us-east-1.amazonaws.com/readPlaylist'
         );
         const data = await res.json();
         const matched = data.find((p) => String(p.pk) === id);
@@ -45,7 +45,7 @@ function AddSong() {
 
     try {
       const response = await fetch(
-        'https://l9kvphvd0a.execute-api.us-east-1.amazonaws.com/UpdatePlaylist',
+        'https://ljuks4nc2i.execute-api.us-east-1.amazonaws.com/UpdatePlaylist',
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },

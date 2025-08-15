@@ -13,7 +13,7 @@ function Home() {
     const payload = {email};
 
     try {
-      const res = await fetch("https://l9kvphvd0a.execute-api.us-east-1.amazonaws.com/subscribe", { 
+      const res = await fetch("https://ljuks4nc2i.execute-api.us-east-1.amazonaws.com/subscribe", { 
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -34,7 +34,7 @@ function Home() {
   useEffect(() => {
     async function fetchPlaylists() {
       try {
-        const response = await fetch('https://l9kvphvd0a.execute-api.us-east-1.amazonaws.com/readPlaylist');
+        const response = await fetch('https://ljuks4nc2i.execute-api.us-east-1.amazonaws.com/readPlaylist');
         const playlistNames = await response.json();
         setPlaylists(playlistNames);
       } catch (error) {
